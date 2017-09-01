@@ -1,0 +1,10 @@
+/.idea
+/gradle
+/input
+/raw-images
+/trimming
+/gradlew
+/gradlew.bat
+*.log
+/output.csv
+/setting.gradle
