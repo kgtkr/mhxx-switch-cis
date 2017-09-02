@@ -1,7 +1,7 @@
 package com.github.kgtkr.mhxxSwitchCIS
 
 import java.awt.*
-import java.awt.color.*
+import javafx.geometry.Point3D
 
 fun Color.deff(c:Color):Int{
     val r=this.red-c.red

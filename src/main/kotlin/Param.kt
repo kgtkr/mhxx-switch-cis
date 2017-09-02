@@ -14,16 +14,9 @@ class ParamFrame:JFrame("パラメーター調整"){
 
     val imageLabel=JLabel()
 
-    val rSlider=JSlider(0,255,ImageConfig.COLOR.red)
-    val rLabel=JLabel()
+    val color=JColorChooser(ImageConfig.COLOR)
 
-    val gSlider=JSlider(0,255,ImageConfig.COLOR.green)
-    val gLabel=JLabel()
-
-    val bSlider=JSlider(0,255,ImageConfig.COLOR.blue)
-    val bLabel=JLabel()
-
-    val thSlider=JSlider(0,300000,ImageConfig.THRESHOLD)
+    val thSlider=JSlider(0,30000,ImageConfig.THRESHOLD)
     val thLabel=JLabel()
 
     init{
@@ -48,33 +41,25 @@ class ParamFrame:JFrame("パラメーター調整"){
         val imagePanel =JPanel()
         imagePanel.add(this.imageLabel)
 
-        val toolPanel =JPanel()
 
-        this.rSlider.addChangeListener {
-            this.updateImage()
-        }
-        this.gSlider.addChangeListener {
-            this.updateImage()
-        }
-        this.bSlider.addChangeListener {
+        this.color.selectionModel.addChangeListener {
             this.updateImage()
         }
         this.thSlider.addChangeListener {
             this.updateImage()
         }
 
-        toolPanel.add(this.rSlider)
-        toolPanel.add(this.rLabel)
-        toolPanel.add(this.gSlider)
-        toolPanel.add(this.gLabel)
-        toolPanel.add(this.bSlider)
-        toolPanel.add(this.bLabel)
+        val colorPanel =JPanel()
+        colorPanel.add(this.color)
+
+        val toolPanel =JPanel()
         toolPanel.add(this.thSlider)
         toolPanel.add(this.thLabel)
 
 
         this.contentPane.add(imagePanel, BorderLayout.CENTER)
-        this.contentPane.add(toolPanel, BorderLayout.SOUTH)
+        this.contentPane.add(colorPanel, BorderLayout.SOUTH)
+        this.contentPane.add(toolPanel, BorderLayout.NORTH)
         this.isVisible=true
     }
 
@@ -82,12 +67,9 @@ class ParamFrame:JFrame("パラメーター調整"){
         val image=this.image
         if(image==null)return
 
-        this.rLabel.text=this.rSlider.value.toString()
-        this.gLabel.text=this.gSlider.value.toString()
-        this.bLabel.text=this.bSlider.value.toString()
         this.thLabel.text=this.thSlider.value.toString()
 
-        val bitImage=image.toBitImage(Color(this.rSlider.value,this.gSlider.value,this.bSlider.value),this.thSlider.value)
+        val bitImage=image.toBitImage(this.color.color,this.thSlider.value)
         val bufImage=BufferedImage(image.width,image.height,image.type)
         for(x in 0..image.width-1){
             for(y in 0..image.height-1){

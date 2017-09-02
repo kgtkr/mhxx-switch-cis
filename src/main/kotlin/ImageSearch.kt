@@ -9,11 +9,11 @@ typealias BitImage=Array<Array<Boolean>>
 /**
  * 画像を簡略化
  */
-fun BufferedImage.toBitImage(color:Color=ImageConfig.COLOR,th:Int=ImageConfig.THRESHOLD):BitImage{
+fun BufferedImage.toBitImage(c:Color,th:Int):BitImage{
     val bi=Array<Array<Boolean>>(this.width,{Array(this.height,{false})})
     for(x in 0..this.width-1){
         for(y in 0..this.height-1){
-            bi[x][y]=color.deff(Color(this.getRGB(x,y)))<=th
+            bi[x][y]=Color(this.getRGB(x,y)).deff(c)<=th
         }
     }
 

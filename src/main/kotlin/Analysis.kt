@@ -17,18 +17,18 @@ private fun readImage(name:String):List<Pair<String,BufferedImage>>{
 
 private fun readBitImage(name:String):BitImages{
     return readImage(name)
-            .map{x-> Pair(x.first,x.second.toBitImage()) }
+            .map{x-> Pair(x.first,x.second.toBitImage(IC.COLOR,IC.THRESHOLD)) }
 }
 
 private fun Triple<BufferedImage, BufferedImage, BufferedImage>.getVal(values:Triple<BitImages,BitImages,BitImages>):Int{
-    val val0=this.first.toBitImage().deffMinIndex(values.first)
+    val val0=this.first.toBitImage(IC.COLOR,IC.THRESHOLD).deffMinIndex(values.first)
     val val1=when(val0){
-        ""->this.second.toBitImage().deffMinIndex(values.second)
+        ""->this.second.toBitImage(IC.COLOR,IC.THRESHOLD).deffMinIndex(values.second)
         else->"1"
     }
     val val2=when(val1){
-        "1"->this.third.toBitImage().deffMinIndex(values.third.filter { x->x.first=="0"||x.first=="1"||x.first=="2"||x.first=="3" })
-        else->this.third.toBitImage().deffMinIndex(values.third.filter { x->x.first!="0"})
+        "1"->this.third.toBitImage(IC.COLOR,IC.THRESHOLD).deffMinIndex(values.third.filter { x->x.first=="0"||x.first=="1"||x.first=="2"||x.first=="3" })
+        else->this.third.toBitImage(IC.COLOR,IC.THRESHOLD).deffMinIndex(values.third.filter { x->x.first!="0"})
     }
 
     return (val0+val1+val2).toInt()
@@ -55,7 +55,7 @@ private fun BufferedImage.getGoseki(gosekis:List<Pair<String,Color>>):String{
 }
 
 private fun BufferedImage.getSkillName(skills:BitImages):String{
-    return this.toBitImage().deffMinIndex(skills)
+    return this.toBitImage(IC.COLOR,IC.THRESHOLD).deffMinIndex(skills)
 }
 
 fun analysisCmd(){
