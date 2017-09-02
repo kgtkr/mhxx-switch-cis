@@ -52,6 +52,10 @@ private fun BufferedImage.getGoseki(gosekis:List<Pair<String,Color>>):String{
     return this.deffMinIndex(IC.GOSEKI_COLOR_X,IC.GOSEKI_COLOR_Y,gosekis)
 }
 
+private fun BufferedImage.getSkillName(skills:BitImages):String{
+    return this.toBitImage().deffMinIndex(skills)
+}
+
 fun analysisCmd(){
     //データ読み込み
     val skills=readBitImage("skill")
@@ -63,8 +67,8 @@ fun analysisCmd(){
     val csv=readImages("./input")
             .map{row->
                 val goseki=row.goseki.getGoseki(gosekis)
-                val skill1=Pair(row.oneSkillName.toBitImage().deffMinIndex(skills), row.oneSkillValue.getVal(values))
-                val skill2Name=row.twoSkillName.toBitImage().deffMinIndex(skills)
+                val skill1=Pair(row.oneSkillName.getSkillName(skills), row.oneSkillValue.getVal(values))
+                val skill2Name=row.twoSkillName.getSkillName(skills)
                 val skill2=when(skill2Name){
                     ""->null
                     else->Pair(skill2Name,row.twoSkillValue.getVal(values))
