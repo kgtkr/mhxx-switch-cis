@@ -70,10 +70,10 @@ fun analysisCmd(){
             .map{row->
                 val skill1Name=row.oneSkillName.getSkillName(skills.filter { s->s.first.isNotEmpty() })
 
-                if(skill1Name!="(なし)") {
+                if(skill1Name!="(無)") {
                     val goseki = row.goseki.getGoseki(gosekis)
                     val skill1 = Pair(skill1Name, row.oneSkillValue.getVal(values))
-                    val skill2Name = row.twoSkillName.getSkillName(skills.filter { s -> s.first != "(なし)" })
+                    val skill2Name = row.twoSkillName.getSkillName(skills.filter { s -> s.first != "(無)" })
                     val skill2 = when (skill2Name) {
                         "" -> null
                         else -> Pair(skill2Name, row.twoSkillValue.getVal(values))
