@@ -20,51 +20,56 @@ private fun readBitImage(name:String):BitImages{
             .map{x-> Pair(x.first,x.second.toBitImage()) }
 }
 
-private fun Triple<BufferedImage, BufferedImage, BufferedImage>.getVal(values0:BitImages,values1:BitImages,values2:BitImages):Int{
-    val val0=this.first.toBitImage().deffMinIndex(values0)
-    val val1=this.second.toBitImage().deffMinIndex(values1)
-    val val2=this.third.toBitImage().deffMinIndex(values2)
+private fun Triple<BufferedImage, BufferedImage, BufferedImage>.getVal(values:Triple<BitImages,BitImages,BitImages>):Int{
+    val val0=this.first.toBitImage().deffMinIndex(values.first)
+    val val1=this.second.toBitImage().deffMinIndex(values.second)
+    val val2=this.third.toBitImage().deffMinIndex(values.third)
 
     return (val0+val1+val2).toInt()
+}
+
+private fun BufferedImage.getSlot():Int{
+    val slot1Color= Color(this.getRGB(IC.SLOT1_COLOR_X,IC.SLOT_COLOR_Y))
+    val slot2Color= Color(this.getRGB(IC.SLOT2_COLOR_X,IC.SLOT_COLOR_Y))
+    val slot3Color= Color(this.getRGB(IC.SLOT3_COLOR_X,IC.SLOT_COLOR_Y))
+
+    val isSlot1=slot1Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+    val isSlot2=slot2Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+    val isSlot3=slot3Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+
+    return if(isSlot1&&isSlot2&&isSlot3){
+        3
+    }else if(isSlot1&&isSlot2){
+        2
+    }else if(isSlot1){
+        1
+    }else{
+        0
+    }
+}
+
+private fun BufferedImage.getGoseki(gosekis:List<Pair<String,Color>>):String{
+    return this.deffMinIndex(IC.GOSEKI_COLOR_X,IC.GOSEKI_COLOR_Y,gosekis)
 }
 
 fun analysisCmd(){
     //データ読み込み
     val skills=readBitImage("skill")
-    val values0=readBitImage("value0")
-    val values1=readBitImage("value1")
-    val values2=readBitImage("value2")
+    val values=Triple(readBitImage("value0"),readBitImage("value1"),readBitImage("value2"))
     val gosekis=readImage("goseki")
             .map{x->Pair(x.first,Color(x.second.getRGB(IC.GOSEKI_COLOR_X,IC.GOSEKI_COLOR_Y)))}
 
 
     val csv=readImages("./input")
             .map{row->
-                val goseki=row.goseki.deffMinIndex(IC.GOSEKI_COLOR_X,IC.GOSEKI_COLOR_Y,gosekis)
-                val skill1=Pair(row.oneSkillName.toBitImage().deffMinIndex(skills),
-                        row.oneSkillValue.getVal(values0,values1,values2))
+                val goseki=row.goseki.getGoseki(gosekis)
+                val skill1=Pair(row.oneSkillName.toBitImage().deffMinIndex(skills), row.oneSkillValue.getVal(values))
                 val skill2Name=row.twoSkillName.toBitImage().deffMinIndex(skills)
                 val skill2=when(skill2Name){
                     ""->null
-                    else->Pair(skill2Name,row.twoSkillValue.getVal(values0,values1,values2))
+                    else->Pair(skill2Name,row.twoSkillValue.getVal(values))
                 }
-                val slot1Color= Color(row.slot.getRGB(IC.SLOT1_COLOR_X,IC.SLOT_COLOR_Y))
-                val slot2Color= Color(row.slot.getRGB(IC.SLOT2_COLOR_X,IC.SLOT_COLOR_Y))
-                val slot3Color= Color(row.slot.getRGB(IC.SLOT3_COLOR_X,IC.SLOT_COLOR_Y))
-
-                val isSlot1=slot1Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-                val isSlot2=slot2Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-                val isSlot3=slot3Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-
-                val slot=if(isSlot1&&isSlot2&&isSlot3){
-                    3
-                }else if(isSlot1&&isSlot2){
-                    2
-                }else if(isSlot1){
-                    1
-                }else{
-                    0
-                }
+                val slot=row.slot.getSlot()
 
                 Goseki(goseki,skill1,skill2,slot)
             }
