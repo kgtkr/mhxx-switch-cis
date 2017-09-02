@@ -20,14 +20,16 @@ object ImageConfig{
     const val ONE_SKILL_NAME_X=31
     const val ONE_SKILL_NAME_W=112
 
-    const val ONE_SKILL_VALUE_X=143
-    const val ONE_SKILL_VALUE_W=40
+    const val ONE_SKILL_VALUE_X=147
+    const val ONE_SKILL_VALUE_W=36
 
     const val TWO_SKILL_NAME_X=182
     const val TWO_SKILL_NAME_W=112
 
-    const val TWO_SKILL_VALUE_X=292
-    const val TWO_SKILL_VALUE_W=40
+    const val TWO_SKILL_VALUE_X=296
+    const val TWO_SKILL_VALUE_W=36
+
+    const val SKILL_VALUE_NUMBER_W=12
 
     const val SLOT_X=331
     const val SLOT_W=62
@@ -41,7 +43,10 @@ object ImageConfig{
     const val GOSEKI_COLOR_X=10
     const val GOSEKI_COLOR_Y=24
 
-    val COLOR=Color(30,30,30)
-    const val THRESHOLD=5000
+    val COLOR=Color(200,200,200)
+    const val THRESHOLD=15000
+
+    val SLOT_COLOR=Color(255,255,255)
+    const val SLOT_THRESHOLD=30000
 
 }

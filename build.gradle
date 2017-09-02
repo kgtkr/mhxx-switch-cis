@@ -67,5 +67,5 @@ compileTestKotlin {
 }
 
 run {
-    //args "c"
+    //args "t"
 }

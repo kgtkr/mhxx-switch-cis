@@ -10,11 +10,11 @@ object ImageSearch{
     /**
      * 画像を簡略化
      */
-    fun toBitImage(image:BufferedImage):BitImage{
+    fun toBitImage(image:BufferedImage,color:Color=ImageConfig.COLOR,th:Int=ImageConfig.THRESHOLD):BitImage{
         val bi=Array<Array<Boolean>>(image.width,{i->Array(image.height,{i->false})})
         for(x in 0..image.width-1){
             for(y in 0..image.height-1){
-                bi[x][y]=ColorUtils.ssd(Color(image.getRGB(x,y)),ImageConfig.COLOR)<=ImageConfig.THRESHOLD
+                bi[x][y]=ColorUtils.ssd(Color(image.getRGB(x,y)),color)<=th
             }
         }
 

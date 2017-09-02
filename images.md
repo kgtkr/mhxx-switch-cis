@@ -8,6 +8,8 @@ https://ux.getuploader.com/mhxx_switch_cis/
 # チェックリスト
 * [./images-goseki.md](護石)
 * [./images-skill.md](スキル名)
-* [./images-value.md](スキルポイント)
+* [./images-value2.md](スキルポイント1桁目)
+* [./images-value1.md](スキルポイント2桁目)
+* [./images-value0.md](スキルポイント3桁目)
 * [./images-slot.md](スロット)
 
