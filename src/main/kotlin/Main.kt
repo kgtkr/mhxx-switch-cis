@@ -63,9 +63,9 @@ fun defaltCmd(){
                 val slot2Color=Color(row.slot.getRGB(IC.SLOT2_COLOR_X,IC.SLOT_COLOR_Y))
                 val slot3Color=Color(row.slot.getRGB(IC.SLOT3_COLOR_X,IC.SLOT_COLOR_Y))
 
-                val isSlot1=ColorUtils.ssd(slot1Color,IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-                val isSlot2=ColorUtils.ssd(slot2Color,IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-                val isSlot3=ColorUtils.ssd(slot3Color,IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+                val isSlot1=slot1Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+                val isSlot2=slot2Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
+                val isSlot3=slot3Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
 
                 val slot=if(isSlot1&&isSlot2&&isSlot3){
                     3

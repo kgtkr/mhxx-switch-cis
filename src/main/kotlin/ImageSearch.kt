@@ -14,7 +14,7 @@ object ImageSearch{
         val bi=Array<Array<Boolean>>(image.width,{Array(image.height,{false})})
         for(x in 0..image.width-1){
             for(y in 0..image.height-1){
-                bi[x][y]=ColorUtils.ssd(Color(image.getRGB(x,y)),color)<=th
+                bi[x][y]=color.deff(Color(image.getRGB(x,y)))<=th
             }
         }
 
@@ -51,7 +51,7 @@ object ImageSearch{
         var min=-1
         var name=""
         for((k,v) in images){
-            val deff=ColorUtils.ssd(Color(image.getRGB(x,y)),v)
+            val deff=v.deff(Color(image.getRGB(x,y)))
             if(deff<min||min==-1){
                 min=deff
                 name=k
