@@ -72,7 +72,7 @@ fun analysisCmd(){
 
                 if(skill1Name!="(無)") {
                     val goseki = row.goseki.getGoseki(gosekis)
-                    val skill1 = Pair(skill1Name, row.oneSkillValue.getVal(values))
+                    val skill1 = Pair(skill1Name, row.oneSkillValue.getVal(values.copy(first = values.first.filter { s->s.first!="-" },second = values.second.filter { s->s.first!="-" })))
                     val skill2Name = row.twoSkillName.getSkillName(skills.filter { s -> s.first != "(無)" })
                     val skill2 = when (skill2Name) {
                         "" -> null
