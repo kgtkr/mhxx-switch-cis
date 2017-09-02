@@ -5,6 +5,10 @@ import java.awt.*
 import java.awt.image.*
 import javax.imageio.ImageIO
 
+fun paramCmd(){
+    ParamFrame()
+}
+
 class ParamFrame:JFrame("パラメーター調整"){
     var image:BufferedImage?=null
 
@@ -83,9 +87,7 @@ class ParamFrame:JFrame("パラメーター調整"){
         this.bLabel.text=this.bSlider.value.toString()
         this.thLabel.text=this.thSlider.value.toString()
 
-        val bitImage=ImageSearch
-                .toBitImage(image,Color(this.rSlider.value,this.gSlider.value,this.bSlider.value)
-                ,this.thSlider.value)
+        val bitImage=image.toBitImage(Color(this.rSlider.value,this.gSlider.value,this.bSlider.value),this.thSlider.value)
         val bufImage=BufferedImage(image.width,image.height,image.type)
         for(x in 0..image.width-1){
             for(y in 0..image.height-1){
