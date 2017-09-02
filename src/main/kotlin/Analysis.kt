@@ -22,8 +22,14 @@ private fun readBitImage(name:String):BitImages{
 
 private fun Triple<BufferedImage, BufferedImage, BufferedImage>.getVal(values:Triple<BitImages,BitImages,BitImages>):Int{
     val val0=this.first.toBitImage().deffMinIndex(values.first)
-    val val1=this.second.toBitImage().deffMinIndex(values.second)
-    val val2=this.third.toBitImage().deffMinIndex(values.third)
+    val val1=when(val0){
+        ""->this.second.toBitImage().deffMinIndex(values.second)
+        else->"1"
+    }
+    val val2=when(val1){
+        "1"->this.third.toBitImage().deffMinIndex(values.third.filter { x->x.first=="0"||x.first=="1"||x.first=="2"||x.first=="3" })
+        else->this.third.toBitImage().deffMinIndex(values.third.filter { x->x.first!="0"})
+    }
 
     return (val0+val1+val2).toInt()
 }
@@ -33,15 +39,11 @@ private fun BufferedImage.getSlot():Int{
     val slot2Color= Color(this.getRGB(IC.SLOT2_COLOR_X,IC.SLOT_COLOR_Y))
     val slot3Color= Color(this.getRGB(IC.SLOT3_COLOR_X,IC.SLOT_COLOR_Y))
 
-    val isSlot1=slot1Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-    val isSlot2=slot2Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-    val isSlot3=slot3Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD
-
-    return if(isSlot1&&isSlot2&&isSlot3){
+    return if(slot3Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD){
         3
-    }else if(isSlot1&&isSlot2){
+    }else if(slot2Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD){
         2
-    }else if(isSlot1){
+    }else if(slot1Color.deff(IC.SLOT_COLOR)>IC.SLOT_THRESHOLD){
         1
     }else{
         0
@@ -66,17 +68,24 @@ fun analysisCmd(){
 
     val csv=readImages("./input")
             .map{row->
-                val goseki=row.goseki.getGoseki(gosekis)
-                val skill1=Pair(row.oneSkillName.getSkillName(skills), row.oneSkillValue.getVal(values))
-                val skill2Name=row.twoSkillName.getSkillName(skills)
-                val skill2=when(skill2Name){
-                    ""->null
-                    else->Pair(skill2Name,row.twoSkillValue.getVal(values))
-                }
-                val slot=row.slot.getSlot()
+                val skill1Name=row.oneSkillName.getSkillName(skills.filter { s->s.first.isNotEmpty() })
 
-                Goseki(goseki,skill1,skill2,slot)
+                if(skill1Name!="(なし)") {
+                    val goseki = row.goseki.getGoseki(gosekis)
+                    val skill1 = Pair(skill1Name, row.oneSkillValue.getVal(values))
+                    val skill2Name = row.twoSkillName.getSkillName(skills.filter { s -> s.first != "(なし)" })
+                    val skill2 = when (skill2Name) {
+                        "" -> null
+                        else -> Pair(skill2Name, row.twoSkillValue.getVal(values))
+                    }
+                    val slot = row.slot.getSlot()
+
+                    Goseki(goseki, skill1, skill2, slot)
+                }else{
+                    null
+                }
             }
+            .filterNotNull()
             .map{g->
                 if(g.skill2!=null){
                     "${g.goseki},${g.slot},${g.skill1.first},${g.skill1.second},${g.skill2.first},${g.skill2.second}"
@@ -85,6 +94,6 @@ fun analysisCmd(){
                 }
             }
             .joinToString("\n")
-
+""
     FileUtils.write(File("./output.csv"),csv,"utf8")
 }
