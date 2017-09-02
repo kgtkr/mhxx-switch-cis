@@ -94,6 +94,5 @@ fun analysisCmd(){
                 }
             }
             .joinToString("\n")
-""
     FileUtils.write(File("./output.csv"),csv,"utf8")
 }
