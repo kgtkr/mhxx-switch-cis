@@ -42,7 +42,6 @@ class ParamFrame:JFrame("パラメーター調整"){
         this.jMenuBar=menuBar
 
         val imagePanel =JPanel()
-        val imageLabel=JLabel()
         imagePanel.add(this.imageLabel)
 
         val toolPanel =JPanel()

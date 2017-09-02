@@ -44,7 +44,7 @@ object ImageConfig{
     const val GOSEKI_COLOR_Y=24
 
     val COLOR=Color(200,200,200)
-    const val THRESHOLD=15000
+    const val THRESHOLD=5000
 
     val SLOT_COLOR=Color(255,255,255)
     const val SLOT_THRESHOLD=30000

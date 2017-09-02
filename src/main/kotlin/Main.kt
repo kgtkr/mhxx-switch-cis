@@ -49,7 +49,6 @@ fun defaltCmd(){
     }
 
 
-
     val csv=readImages("./input")
             .map{row->
                 val goseki=ImageSearch.deffMinIndex(row.goseki,IC.GOSEKI_COLOR_X,IC.GOSEKI_COLOR_Y,gosekis)
@@ -135,6 +134,7 @@ fun trimmingCmd(){
 fun readImages(dir:String):List<Rows>{
     return File(dir)
             .listFiles()
+            .sorted()
             .map{file->ImageIO.read(file)}
             .map{image->ImageTrimming.trimmingImage(image)}
             .map{table->ImageTrimming.trimmingTable(table)}
