@@ -47,6 +47,6 @@ object ImageConfig{
     const val THRESHOLD=10000
 
     val SLOT_COLOR=Color(255,255,255)
-    const val SLOT_THRESHOLD=30000
+    const val SLOT_THRESHOLD=5000
 
 }
