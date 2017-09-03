@@ -26,7 +26,7 @@ object ImageConfig{
     const val TWO_SKILL_NAME_X=182
     const val TWO_SKILL_NAME_W=112
 
-    const val TWO_SKILL_VALUE_X=296
+    const val TWO_SKILL_VALUE_X=297
     const val TWO_SKILL_VALUE_W=36
 
     const val SKILL_VALUE_NUMBER_W=12

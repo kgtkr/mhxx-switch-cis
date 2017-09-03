@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
     }else if(args[0]=="p"||args[0]=="param"){
         paramCmd()
     }
+
 }
 
 
