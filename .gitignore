@@ -8,3 +8,8 @@
 *.log
 /output.csv
 /setting.gradle
+/build
+/.gradle
+/.settings
+/.project
+/.classpath
