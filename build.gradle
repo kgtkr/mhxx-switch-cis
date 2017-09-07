@@ -48,10 +48,27 @@ buildscript {
     }
 }
 
+apply plugin: 'distribution'
+
+distributions {
+    main {
+        contents {
+            into('images') {
+                from { 'images' }
+            }
+        }
+    }
+}
+
 apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/java'
 }
 
 dependencies {
@@ -64,6 +81,12 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
 }
 
 run {
