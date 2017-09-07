@@ -12,10 +12,11 @@ Java8以上
 ## スクショ撮影
 1. お守りの全ページを撮影
 2. SDカードからPCに移動
-3. *一切編集せずに*当ソフトのimagesフォルダに移動
+3. このソフトの`bin`フォルダの中に`input`フォルダを作成
+4. さっき作った`bin/input`フォルダに画像を移動
 
 ## 起動
-1. `$ java -jar msc.jar`(windowsの方はmsc.batダブルクリックでも可)
+1. `bin`フォルダの中の`mhxx-switch-cis.bat`をダブルクリック
 2. output.csvに出力されます
 
 # 使用ライブラリ
