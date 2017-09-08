@@ -95,5 +95,5 @@ fun analysisCmd(){
             }
             .joinToString("\n")
     val header="#護石名,スロット,第一スキル名,第一スキルポイント,第ニスキル名,第ニスキルポイント\n"
-    FileUtils.write(File("./output.csv"),header+csv,"sjis")
+    FileUtils.write(File("./CHARM.csv"),header+csv,"sjis")
 }

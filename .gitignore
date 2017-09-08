@@ -6,7 +6,7 @@
 /gradlew
 /gradlew.bat
 *.log
-/output.csv
+/CHARM.csv
 /setting.gradle
 /build
 /.gradle

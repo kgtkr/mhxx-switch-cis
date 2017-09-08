@@ -13,11 +13,12 @@ Java8以上
 1. お守りの全ページを撮影
 2. SDカードからPCに移動
 3. このソフトのルート(msc.jarがある所)に`input`フォルダを作成
-4. さっき作った`input`フォルダに画像を移動
+4. 3で`input`フォルダに画像を移動
 
 ## 起動
 1. `run.bat`をダブルクリック(linuxやmacならrun.shを起動)
-2. output.csvに出力されます
+2. `CHARM.csv`が出力されます
+3. 頑シミュの`save`フォルダに2で出力された`CHARM.csv`を移動しましょう
 
 # 使用ライブラリ
 * Kotlin stdlib
