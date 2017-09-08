@@ -24,36 +24,46 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "eu.appsatori:gradle-fatjar-plugin:0.3"
     }
 }
 
-apply plugin: 'distribution'
+apply plugin: 'eu.appsatori.fatjar'
 
-distributions {
-    main {
-        contents {
-            into('bin/images') {
-                from { 'images' }
-            }
-        }
-        contents {
-            into('') {
-                from { 'README.md' }
-            }
-        }
-    }
-}
-
-jar  {
+fatJar {
+    archiveName = 'msc.jar'
     from "$buildDir/kotlin-classes/main"
+    manifest {
+        attributes('Main-Class': mainClassName)
+    }
 }
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile 'commons-io:commons-io:2.5'
+}
+
+task myZip(type:Zip,dependsOn:fatJar) {
+        archiveName="${project.name}-${version}.zip"
+        into('images') {
+            from "images"
+        }
+        into('') {
+            from "README.md"
+        }
+        into('') {
+            from "${buildDir}/libs/msc.jar"
+        }
+        into('') {
+            from "run.sh"
+        }
+        into('') {
+            from "run.dat"
+        }
 }
 
 run {
