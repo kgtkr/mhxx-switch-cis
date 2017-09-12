@@ -15,6 +15,8 @@ fun main(args: Array<String>) {
         checkCmd()
     }else if(args[0]=="p"||args[0]=="param"){
         paramCmd()
+    }else if(args[0]=="d"||args[0]=="data"){
+        dataCmd()
     }
 
 }

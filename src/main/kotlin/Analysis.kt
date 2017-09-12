@@ -4,15 +4,20 @@ import org.apache.commons.io.FileUtils
 import org.apache.commons.io.FilenameUtils
 import java.awt.Color
 import java.awt.image.BufferedImage
+import java.io.ByteArrayInputStream
 import java.io.File
+import java.util.*
 import javax.imageio.ImageIO
 
 typealias BitImages=List<Pair<String,BitImage>>
 
-private fun readImage(name:String):List<Pair<String,BufferedImage>>{
-    return File("./images/${name}")
-            .listFiles()
-            .map { f->Pair(FilenameUtils.getBaseName(f.name), ImageIO.read(f)) }
+private fun readImage(name:String):List<Pair<String,BufferedImage>> {
+    val data = FileUtils.readFileToString(File("./data/${name}"), "utf8")
+    return data.split("\n")
+            .map { s -> s.split(",") }
+            .map { s -> Pair(s[0], s[1]) }
+            .map { data -> Pair(data.first, Base64.getDecoder().decode(data.second)) }
+            .map { data -> Pair(data.first, ImageIO.read(ByteArrayInputStream(data.second))) }
 }
 
 private fun readBitImage(name:String):BitImages{
