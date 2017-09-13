@@ -62,7 +62,7 @@ task myZip(type:Zip,dependsOn:fatJar) {
             from "run.sh"
         }
         into('') {
-            from "run.dat"
+            from "run.bat"
         }
 }
 
